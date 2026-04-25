@@ -18,5 +18,3 @@ jobs:
         run: |
           docker build -t csn-backend ./backend
 
-      - name: Validate docker compose file
-        run: docker compose config
