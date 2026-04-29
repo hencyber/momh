@@ -22,17 +22,17 @@ client = OpenAI(
 
 
 def search(query, k=3):
-    """soker i vector store efter relevanta dokument"""
+    """söker i vector store efter relevanta dokument"""
     results = vector_store.similarity_search(query, k=k)
     return results
 
 
 def ask(question):
-    """tar emot en fraga och returnerar svar + kallor"""
-    # hamta relevanta dokument
+    """tar emot en fråga och returnerar svar + källor"""
+    # hämta relevanta dokument
     docs = search(question)
     
-    # bygg context fran dokumenten
+    # bygg context från dokumenten
     context = ""
     sources = []
     for doc in docs:
@@ -48,14 +48,14 @@ def ask(question):
             {
                 "role": "system",
                 "content": (
-                    "Du ar en hjalpsam assistent som svarar pa fragor om aterbetalning av studielan fran CSN. "
-                    "Svara baserat pa kontexten. Om du inte hittar svaret, hanvisa till csn.se. "
-                    "Svara pa svenska, kortfattat och tydligt."
+                    "Du är en hjälpsam assistent som svarar på frågor om återbetalning av studielån från CSN. "
+                    "Svara baserat på kontexten. Om du inte hittar svaret, hänvisa till csn.se. "
+                    "Svara på svenska, kortfattat och tydligt."
                 )
             },
             {
                 "role": "user",
-                "content": f"Kontext:\n{context}\n\nFraga: {question}"
+                "content": f"Kontext:\n{context}\n\nFråga: {question}"
             }
         ],
     )
@@ -66,6 +66,6 @@ def ask(question):
 
 if __name__ == "__main__":
     # snabbtest
-    svar, kallor = ask("Hur mycket ska jag betala pa mitt lan?")
+    svar, källor = ask("Hur mycket ska jag betala på mitt lån?")
     print(f"Svar: {svar}")
-    print(f"Kallor: {kallor}")
+    print(f"Källor: {källor}")

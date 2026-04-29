@@ -3,12 +3,12 @@ from pydantic import BaseModel
 import sys
 import os
 
-# lagg till parent path sa vi kan importera rag
+# lägg till parent path så vi kan importera rag
 sys.path.insert(0, os.path.join(os.path.dirname(__file__)))
 
 from rag import ask
 
-app = FastAPI(title="CSN Aterbetalning API")
+app = FastAPI(title="CSN Återbetalning API")
 
 
 class ChatRequest(BaseModel):
@@ -27,7 +27,7 @@ def health():
 
 @app.post("/chat")
 def chat(request: ChatRequest):
-    """tar emot en fraga och returnerar svar fran RAG"""
+    """tar emot en fråga och returnerar svar från RAG"""
     try:
         answer, sources = ask(request.question)
         return ChatResponse(answer=answer, sources=sources)

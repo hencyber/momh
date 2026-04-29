@@ -1,8 +1,8 @@
 import streamlit as st
 import requests
 
-st.title("CSN Aterbetalning - Chatbot")
-st.write("Stall fragor om aterbetalning av studielan")
+st.title("CSN Återbetalning - Chatbot")
+st.write("Ställ frågor om återbetalning av studielån")
 
 API_URL = "http://localhost:8002/chat"
 
@@ -16,27 +16,27 @@ for msg in st.session_state.messages:
         st.write(msg["content"])
 
 # input
-question = st.chat_input("Stall en fraga om aterbetalning...")
+question = st.chat_input("Ställ en fråga om återbetalning...")
 
 if question:
-    # visa anvandardens fraga
+    # visa användarens fråga
     st.session_state.messages.append({"role": "user", "content": question})
     with st.chat_message("user"):
         st.write(question)
     
     # skicka till backend
     with st.chat_message("assistant"):
-        with st.spinner("Tanker..."):
+        with st.spinner("Tänker..."):
             try:
                 response = requests.post(API_URL, json={"question": question}, timeout=60)
                 data = response.json()
                 
                 st.write(data["answer"])
                 
-                # visa kallor
+                # visa källor
                 if data.get("sources"):
                     st.write("---")
-                    st.write("**Kallor:**")
+                    st.write("**Källor:**")
                     for source in data["sources"]:
                         st.write(f"- [{source}]({source})")
                 
