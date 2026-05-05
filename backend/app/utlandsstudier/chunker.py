@@ -5,7 +5,7 @@ def load_chunk_text(file_path:str):
     if not os.path.exists(file_path): # checking if file exists 
         print(f"Error:{file_path} not found.")
         return[]
-    
+
     with open(file_path, "r", encoding="utf-8") as f:
         text = f.read()
 
