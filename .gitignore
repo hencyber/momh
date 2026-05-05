@@ -207,3 +207,17 @@ marimo/_lsp/
 __marimo__/
 backend/data/
 .env 
+
+
+# RAG / ML 
+.chroma/
+chroma/
+.cache/
+huggingface/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
