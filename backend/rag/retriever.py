@@ -1,6 +1,11 @@
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 import anthropic
+from dotenv import load_dotenv
+from pathlib import Path
+load_dotenv(Path(__file__).parent.parent / ".env")
+
+client = anthropic.Anthropic()
 
 # Ladda vector store från disk
 def load_vector_store():
@@ -21,26 +26,29 @@ def retrieve_context(question: str, vector_store, k: int = 3) -> list:
 
 # Skicka fråga + kontext till Claude och få svar
 def ask_claude(question: str, context_docs: list) -> dict:
-    # Bygg kontext-sträng från relevanta chunks
     context = "\n\n".join([doc.page_content for doc in context_docs])
     sources = list(set([doc.metadata["source"] for doc in context_docs]))
-    
-    client = anthropic.Anthropic()
     
     message = client.messages.create(
         model="claude-sonnet-4-20250514",
         max_tokens=1024,
+        system="""Du är en kunnig och hjälpsam CSN-assistent som specialiserar sig på studiestöd, bidrag och lån.
+
+Ditt uppdrag:
+- Svara alltid på svenska
+- Basera dina svar ENDAST på den information som ges i kontexten
+- Om frågan är vag, ställ en följdfråga för att förstå situationen bättre
+- Ge konkreta och specifika svar — undvik att säga "kontakta CSN" om svaret finns i kontexten
+- Om informationen verkligen saknas i kontexten, var ärlig om det men förklara vad du vet
+- Strukturera längre svar med punktlistor för tydlighet
+- Håll en vänlig och professionell ton""",
         messages=[
             {
                 "role": "user",
-                "content": f"""Du är en hjälpsam assistent som svarar på frågor om CSN.
-Basera ditt svar ENDAST på följande information från CSN:
-
+                "content": f"""Kontext från CSN:
 {context}
 
-Fråga: {question}
-
-Svara på svenska och var tydlig och konkret."""
+Fråga: {question}"""
             }
         ]
     )
@@ -49,7 +57,6 @@ Svara på svenska och var tydlig och konkret."""
         "answer": message.content[0].text,
         "sources": sources
     }
-
 # Huvudfunktion som kopplar ihop allt
 def answer_question(question: str) -> dict:
     vector_store = load_vector_store()
