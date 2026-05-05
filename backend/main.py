@@ -1,4 +1,6 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from rag.retriever import answer_question
 
@@ -22,3 +24,7 @@ def chat(request: ChatRequest):
 @app.get("/health")
 def health():
     return {"status": "ok"}
+
+@app.get("/")
+def index():
+    return FileResponse("templates/index.html")
