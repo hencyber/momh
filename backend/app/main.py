@@ -35,17 +35,7 @@ class ChatResponse(BaseModel):
     sources: List[str]
 
 
-# Extract answer and sources from response
-def extract_answer_and_sources(full_response: str):
-    if "KÄLLA:" in full_response:
-        parts = full_response.split("KÄLLA:", 1)  # safer split
-        answer_text = parts[0].strip()
-        source_text = parts[1].strip()
-        return answer_text, [source_text]
-
-    # fallback if no source found
-    print("⚠️ No source from RAG")
-    return full_response, []
+# Removed section "Extract answer and sources from response REMOVED!
 
 
 # Endpoint /chat
@@ -58,19 +48,11 @@ def chat_utlandsstudier(request: ChatRequest):
             status_code=500,
             detail="RAG-chain is not loaded"
         )
-
+# REMOVED : Invoke which returned string , parsing logic 
     try:
-        # Send question to RAG-chain
-        full_response = chain.invoke(request.question)
+        response = chain(request.question) # Added structured rag function
 
-        # Extract answer and sources
-        answer_text, sources_list = extract_answer_and_sources(full_response)
-
-        # Return result
-        return {
-            "answer": answer_text,
-            "sources": sources_list
-        }
+        return response # Added return structured response directly
 
     except Exception as error:
         print("Error with API call:", error)
