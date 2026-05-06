@@ -22,3 +22,9 @@ dependencies = [
     "streamlit>=1.56.0",
     "uvicorn>=0.46.0",
 ]
+
+[tool.uv]
+package = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
