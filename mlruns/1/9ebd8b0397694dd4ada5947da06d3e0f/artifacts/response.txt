@@ -1,0 +1,118 @@
+## Studera utomlandsmed CSN – en komplett guide  
+
+### 1. Vad är CSN och vem kan få det?  
+**CSN** (Centralt Studiestöd) är det statliga stödsystemet för svenska studenter. Det består av **studiebidrag**, **lån** och **kompletterande bidrag** (t.ex. understöd för studier i utlandet).  
+
+| Typ av stöd | När kan du få det? | Vad omfattar det? |
+|------------|-------------------|-------------------|
+| **Studiebidrag** | Alla svenska medborgare (och vissa nordiska medborgare) som är registrerade på en godkänd utbildning. | Månadsvis ekonomiskt bidrag (ca 1 500 kr / månad) som du kan använda till levnadskostnader. |
+| **Lån** | Samma grupp som ovan, men du måste ha rätt att få studiebidrag. | Lånebelopp upp till ca 6 500 kr / månad (max 30 000 kr per termin). |
+| **Kompletterande bidrag för utlandsstudier** | När du studerar **utanför Sverige** och/eller **i ett annat EU‑/EES‑land**. | Extra pengar för resor, boende, böcker osv. (max 1 500 kr / månad). |
+| **Studiemedel för språkstudier** | Språkkurser i Sverige eller utomlands som är en del av din utbildning. | Upp till 1 200 kr / termin. |
+
+> **Viktigt:** Du måste vara **registrerad i Sverige** (folkbokföringsort) och ha **svenskt personnummer**. Du behöver också uppfylla **studiemotiveringskraven** (minst 30 hp per termin) och **inkomsttaket** (max ≈ 9 000 kr / månad i nettoinkomst för att få fullt stöd).
+
+---
+
+### 2. Typer av utlandsstudier som CSN kan stödja  
+
+| Scenario | CSN‑stöd | Kommentar |
+|----------|----------|-----------|
+| **Helutbildning utomlands** (t.ex. Bachelor/Master i EU) | Ja – studiebidrag + lån + extra utlandstillägg. | Du måste ha blivit antagen till en **godkänd högskola/universitet** och ha en **svensk studieväg** (t.ex. svensk gymnasieutbildning). |
+| **Enstaka kurser/utbytesstudier** (Erasmus+, Nordplus, etc.) | Ja – studiebidrag + lån + utlandstillägg. | Du måste ha en **studieplan** som visar att kurserna ingår i din svenska examen. |
+| **Språkkurser** (t.ex. intensiv språkstudie i Frankrike) | Ja – studiebidrag + språkstöd. | Kursen måste vara **godkänd av CSN** och vara en del av din utbildning. |
+| **Forskning/PhD** | Ja – studiebidrag + lån + eventuellt forskningsstipendium. | Du behöver ett **forskarskrivet studiebrev** från universitetet. |
+| **Kortare sommar‑/vinterkurser** | Ibland – bara studiebidrag (ej lån). | Måste vara **minst 15 hp** eller motsvarande för att räknas som en hel termin. |
+
+---
+
+### 3. Så ansöker du om CSN för studier utomlands  
+
+1. **Skapa ett konto på CSN‑portalen**  
+   - Gå till <https://www.csn.se> och klicka på **“Skapa konto”**.  
+   - Välj “Studier utomlands” som ansökningstyp.
+
+2. **Sök innan du börjar studera**  
+   - **Ansökningsfrist**: Vanligtvis **30 dagar innan studiestarten**.  
+   - Om du redan är registrerad på en svensk utbildning kan du ibland ansöka **efter** att du har påbörjat studierna, men du får bara retroaktivt stöd om du har rätt till det.
+
+3. **Fyll i de nödvändiga formulären**  
+   - **Ansökan om studiebidrag och lån** (vanligt formulär).  
+   - **Extra ansökan om utlandstillägg** (speciellt formulär för studier i utlandet).  
+   - **Intyg om antagning** från den utländska institutionen (officiell antagningsbrev).  
+   - **Studieplan / kursbeskrivning** som visar att du är registrerad på minst 30 hp per termin (eller motsvarande).     - **Ekonomisk deklaration** – dina och eventuellt din partners inkomstuppgifter (CSN använder Skatteverkets data, men du kan behöva bekräfta).  
+
+4. **Skicka in dokumentationen**  
+   - Du kan ladda upp allt digitalt via CSN‑portalen.  
+   - Spara kopior av alla handlingar – CSN kan begära att du visar dem igen.
+
+5. **Vänta på beslut**  
+   - CSN meddelar vanligtvis inom **2–4 veckor** efter att du har skickat in en komplett ansökan.     - Om du får nej kan du **överklaga** eller **ansöka om ett lånelöfte** med mindre belopp.
+
+6. **Mottag och använd ditt stöd**  
+   - När du har blivit beviljad får du ett **beslut** och ett **kontonummer** där pengarna betalas ut varje månad.  
+   - Pengarna kan användas för **levnadskostnader**, **bokkostnader**, **resor** och **försäkringar**.  ---
+
+### 4. Viktiga datum att ha koll på (exempel 2025/2026)
+
+| Period | Aktivitet |
+|--------|-----------|
+| **1‑30 nov** | Öppna ansökan för studier som börjar **ht‑2025**. |
+| **15 dec** | Sista dagen att ansöka för **ht‑2025** (om du vill ha stöd från terminens första dag). |
+| **1‑30 nov** | Öppna ansökan för studier som börjar **vt‑2026**. |
+| **15 dec** | Sista dagen att ansöka för **vt‑2026**. |
+| **31 dec** | sista dagen att **betala tillbaka** eventuella överbetalningar från föregående år (CSN drar tillbaka pengar om du inte har börjat studera). |
+
+> **Tips:** Markera dessa datum i din kalender och börja förbereda dokumentationen i god tid.
+
+---
+
+### 5. Vanliga frågor (FAQ)
+
+| Fråga | Svar |
+|------|------|
+| **Kan jag studera i USA med CSN?** | Ja, men du måste gå via en **godkänd svenska högskolan** eller delta i ett **utbytesprogram** (t.ex. Fulbright, Erasmus+). CSN betalar bara för studier som är **ackrediterade** och **godkända** av svenska myndigheter. |
+| **Behöver jag återvända till Sverige efter studierna?** | Nej, men du måste ** återbetala** hela studiebidraget och lånet om du **inte** uppfyller **återvändandekravet** (vanligtvis 2 år i Sverige efter avslutad utbildning). |
+| **Kan jag få CSN om jag studerar bara en termin utomlands?** | Ja, men du måste ha **minst 30 hp** (eller motsvarande) för den terminen och du får bara **studiebidrag** (ej lån) om terminen är kortare än en hel termin. |
+| **Jag är EU‑medborgare men bor i Sverige – kan jag få CSN?** | Ja, så länge du är **folkbokförd i Sverige** och uppfyller de övriga kraven (inkomst, studietid, etc.). |
+| **Jag får scholarship från universitetet – påverkar det mitt CSN?** | Scholarships räknas som **inkomst** och kan minska ditt **studiebidrag** (CSN minskar med 1 kr för varje 1 kr du får i scholarship). Du måste ändå rapportera detta till CSN. |
+| **Jag har redan ett lån från CSN – kan jag få mer?** | Ja, du kan ansöka om **ytterligare lån** så länge du inte överskrider **maximibeloppet** (ca 30 000 kr per termin). CSN gör en ny bedömning av din ekonomi och studietid. |
+
+---
+
+### 6. Praktiska tips för att maximera ditt CSN‑stöd  
+
+1. **Planera i förväg** – välj en utbildning som är **minst 3 år** (för en kandidatexamen) så att du kan utnyttja hela studiebidraget under hela perioden.  2. **Sök tidigt** – ju tidigare du skickar in din ansökan, desto snabbare får du svar och kan planera boende/resor.  3. **Kombinera med Erasmus+** – om du är antagen till ett Erasmus‑program kan du få **extra utlandstillägg** från både Erasmus och CSN.  
+4. **Spara alla kvitton** – CSN kan begära bevis på att du har använt medlen till studierelaterade kostnader.  
+5. **Uppdatera din inkomstinformation** – om din eller din partners inkomst har ändrats kan du behöva justera din ansökan för att undvika överbetalning.  
+6. **Utnyttja “Kompletterande bidrag för språkstudier”** – om du studerar ett språk som en del av din examen kan du få extra pengar (upp till 1 200 kr/termin).  
+7. **Var medveten om återvändandekravet** – om du planerar att stanna i utlandet efter examen, förbered dig för att ** återbetala** hela stödet om du inte uppfyller kravet på återvändo.  
+
+---
+
+### 7. Exempel: Så kan en typisk ansökan se ut  
+
+> **Anna, 22 år, från Stockholm**  
+> - **Utbildning:** Bachelor i Internationell Relation (30 hp/termin) vid University of Helsinki (Finland).  
+> - **Studietid:** Höstterminen 2025 (augusti–december).  
+> - **Steg 1:** Skapa konto på CSN.se och välj “Studier utomlands”.  
+> - **Steg 2:** Ladda upp:  
+>   - Antagningsbrev från University of Helsinki.  
+>   - Kursplan (30 hp) som visar att kurserna ingår i hennes svenska program.  >   - Screenshots av hennes svenska inkomstuppgifter (hon och hennes partner).  
+>   - Passkopia och adressbevis i Finland (för att bevisa att hon kommer att bo där).  
+> - **Steg 3:** Fyll i formuläret för **studiebidrag + lån** och kryssa för “Utlandstillägg”.  
+> - **Steg 4:** Skicka in. CSN meddelar 2 veckor senare att hon är beviljad:  >   - **Studiebidrag:** 1 500 kr/månad × 5 månader = 7 500 kr.  
+>   - **Lån:** 5 000 kr (max 6 500 kr/termin).  
+>   - **Utlandstillägg:** 1 500 kr/månad × 5 månader = 7 500 kr.  
+> - **Steg 5:** Pengarna betalas ut till hennes svenska bankkonto varje månad. Hon använder dem till hyra, mat och resor till/från universitetet.  
+
+---
+
+## Sammanfattning  
+
+1. **Du kan få CSN för studier utomlands** – både studiebidrag, lån och extra utlandstillägg.  
+2. **Kraven:** svensk folkbokföring, studiemotivering (30 hp/termin), inkomsttak, och att studierna är godkända av CSN.  3. **Ansökningsprocessen** är helt digital via CSN‑portalen; du måste skicka in antagningsbevis, studieplan och ekonomisk information.  
+4. **Tidplan:** sök minst 30 dagar innan studiestarten; viktigaste datumen är 15 december för både höst- och vårterminer.  
+5. **Maximera stödet** genom att planera i förväg, kombinera med Erasmus+ eller andra stipendier, och hålla alla kvitton och dokumentation redo.  
+
+Lycka till med din utlandsstudie! Om du har fler specifika frågor – t.ex. om ett visst land, en specifik utbildning eller hur du hanterar återvändandekravet – är det bara att säga till. 🚀
