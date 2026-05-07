@@ -1,0 +1,12 @@
+# Runs backend and frontend services together
+
+services:
+ backend:
+  build: ./backend
+  ports:
+   - "8000:8000"
+
+ frontend:
+  build: ./frontend
+  ports:
+   - "3000:3000"
