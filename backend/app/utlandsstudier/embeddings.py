@@ -1,10 +1,10 @@
 ## LLM USAGE, Used LLM as assistance since i encountered numerous problems in this part
 
-
 import os
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain_core.documents import Document
+from chunker import load_chunk_text # Added 
 
 def create_embeddings():
     print("Step 1: Starting create_embeddings...")
@@ -19,11 +19,8 @@ def create_embeddings():
     with open(input_file, "r", encoding="utf-8") as f:
         text_data = f.read()
     
-    chunks = [c for c in text_data.split("\n\n") if c.strip()]  ## LMM USAGE 
-    documents = [
-        Document(page_content=chunk,
-                  metadata={"source": "csn_utlandsstudier.txt"}
-            ) for chunk in chunks]
+    chunks = load_chunk_text(input_file)  ## Added LMM USAGE 
+    documents = [Document(page_content=chunk) for chunk in chunks]
     print(f"Step 2: Found {len(documents)} chunks. Creating embeddings (this may take a while)...")
 
     
