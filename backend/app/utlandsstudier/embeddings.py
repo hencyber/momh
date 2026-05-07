@@ -20,7 +20,10 @@ def create_embeddings():
         text_data = f.read()
     
     chunks = [c for c in text_data.split("\n\n") if c.strip()]  ## LMM USAGE 
-    documents = [Document(page_content=chunk) for chunk in chunks]
+    documents = [
+        Document(page_content=chunk,
+                  metadata={"source": "csn_utlandsstudier.txt"}
+            ) for chunk in chunks]
     print(f"Step 2: Found {len(documents)} chunks. Creating embeddings (this may take a while)...")
 
     
