@@ -38,6 +38,12 @@ class ChatResponse(BaseModel):
 # Removed section "Extract answer and sources from response REMOVED!
 
 
+# Added healthcheck
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
+
 # Endpoint /chat
 @app.post("/chat", response_model=ChatResponse)
 def chat_utlandsstudier(request: ChatRequest):
@@ -47,11 +53,9 @@ def chat_utlandsstudier(request: ChatRequest):
         raise HTTPException(status_code=500, detail="RAG-chain is not loaded")
     # REMOVED : Invoke which returned string , parsing logic
     try:
-        response = chain.invoke(request.question)  # Added structured rag function
+        response = chain(request.question)  # Added structured rag function
 
-        return ChatResponse(
-            answer=response, sources=[]
-        )  # Added return structured response directly
+        return response  # Added return structured response directly
 
     except Exception as error:
         print("Error with API call:", error)
