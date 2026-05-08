@@ -37,6 +37,10 @@ class ChatResponse(BaseModel):
 
 # Removed section "Extract answer and sources from response REMOVED!
 
+# Added healthcheck 
+@app.get("/health")
+def health():
+    return {"status": "ok"}
 
 # Endpoint /chat
 @app.post("/chat", response_model=ChatResponse)
