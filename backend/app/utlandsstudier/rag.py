@@ -5,7 +5,7 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain_core.prompts import ChatPromptTemplate
 
-#Removed ! unused imports , StrOutputParser, RunnablePassthrough
+# Removed unused imports
 
 # 1. Load env variables and activate OpenRouter
 load_dotenv()
@@ -13,11 +13,24 @@ os.environ["OPENAI_API_KEY"] = os.getenv("OPENROUTER_API_KEY")
 os.environ["OPENAI_API_BASE"] = "https://openrouter.ai/api/v1"
 
 
+# Added a function to remove the annoying "unknown output"
+def clear_strange_source(source):
+    if not source or "unknown" in source.lower():
+        return "CSN"
+
+    source = source.split("/")[-1]
+    source = source.replace(".txt", "")
+    source = source.replace("-", " ")
+    source = source.replace("_", " ")
+
+    return source.title()
+
+
 def setup_rag_chain():
     # 2. Load existing database
     persist_directory = "backend/data/utlandsstudier/chroma_db"
     model_name = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
-    
+
     embeddings = HuggingFaceEmbeddings(model_name=model_name)
 
     vectorstore = Chroma(
@@ -26,8 +39,7 @@ def setup_rag_chain():
     )
 
     # 3. Create retriever
-    retriever = vectorstore.as_retriever(search_kwargs={"k": 6}) # updated to 6
-   
+    retriever = vectorstore.as_retriever(search_kwargs={"k": 6})
 
     # 4. Define model
     llm = ChatOpenAI(
@@ -35,7 +47,7 @@ def setup_rag_chain():
         temperature=0.0
     )
 
-    # 5. Prompt and guardrails 
+    # 5. Prompt and guardrails
     template = """
 Du är en expert på utlandsstudier och CSN.
 
@@ -85,18 +97,22 @@ Fråga:
 
 Svar:
 """
+
     prompt = ChatPromptTemplate.from_template(template)
 
-    # UPDATED SECTIOON New code, here i create a function instead of chain 
-    def rag_pipeline(question: str): 
+    # RAG pipeline
+    def rag_pipeline(question: str):
         docs = retriever.invoke(question)
-        sources = [doc.metadata.get("source", "unknown") for doc in docs]
-        context = "\n\n".join([
-    f"KÄLLA/SOURCE: {doc.metadata.get('source', 'unknown')}\n{doc.page_content}"
+
+        sources = list(set([
+    clear_strange_source(doc.metadata.get("source"))
     for doc in docs
-])
-
-
+]))
+# Added
+        context = "\n\n".join([
+            f"KÄLLA/SOURCE: {clear_strange_source(doc.metadata.get('source'))}\n{doc.page_content}"
+            for doc in docs # Added
+        ])
 
         messages = prompt.format_messages(
             context=context,
@@ -107,7 +123,7 @@ Svar:
 
         return {
             "answer": response.content,
-            "sources": sources 
+            "sources": sources
         }
 
     return rag_pipeline
