@@ -1,9 +1,14 @@
-import requests
+# Datapipeline för CSN Studiestöd (Orhan)
+# Skrapar CSN-sidor, delar upp text i chunks och skapar en FAISS vector store.
+# Körs en gång för att förbereda data – se 'make setup-orhan'.
+
 import json
+
+import requests
 from bs4 import BeautifulSoup
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"

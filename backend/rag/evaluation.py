@@ -48,41 +48,45 @@ Definitioner:
 
 def run_evaluation(question: str, answer: str, context: str, prompt_version: str):
     """Kör evaluering och logga resultaten i MLflow."""
-    
+
     print(f"Evaluerar svar för prompt {prompt_version}...")
     scores = evaluate_answer(question, answer, context)
-    
+
+    # Logga alla mätvärden och artefakter i en MLflow-körning
     with mlflow.start_run(run_name=f"eval_{prompt_version}"):
         mlflow.log_param("prompt_version", prompt_version)
         mlflow.log_param("question", question)
-        
+
         mlflow.log_metric("relevance", scores["relevance"])
         mlflow.log_metric("correctness", scores["correctness"])
         mlflow.log_metric("conciseness", scores["conciseness"])
-        
+
         mlflow.log_text(answer, "answer.txt")
         mlflow.log_text(scores["reasoning"], "reasoning.txt")
-        
+
         print(f"  Relevans:   {scores['relevance']}")
         print(f"  Korrekthet: {scores['correctness']}")
         print(f"  Koncishet:  {scores['conciseness']}")
         print(f"  Motivering: {scores['reasoning']}")
-    
+
     return scores
 
+
 if __name__ == "__main__":
-    from retriever import answer_question, retrieve_context, load_vector_store
-    
+    from retriever import answer_question, load_vector_store, retrieve_context
+
     question = "Hur mycket studiemedel kan jag få?"
-    
+
+    # Ladda vector store och hämta kontext för evalueringen
     print("Hämtar svar från RAG...")
     vector_store = load_vector_store()
     context_docs = retrieve_context(question, vector_store)
     context = "\n\n".join([doc.page_content for doc in context_docs])
-    
-    result = answer_question(question)
+
+    # Använd samma vector store för svaret (undviker dubbel inläsning)
+    result = answer_question(question, vector_store)
     answer = result["answer"]
-    
+
     run_evaluation(question, answer, context, prompt_version="v2")
-    
+
     print("\nKlart! Öppna MLflow UI för att se evalueringen.")

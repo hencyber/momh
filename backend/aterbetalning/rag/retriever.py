@@ -1,6 +1,8 @@
-# RAG-retriever för CSN Studiestöd (Orhan)
+# RAG-retriever för CSN Återbetalning (Henke)
 # Hanterar inläsning av FAISS vector store, kontextsökning och Claude-anrop.
-# answer_question() accepterar en redan-laddad vector store för bättre prestanda.
+# Samma struktur som Orhans retriever – se backend/rag/retriever.py.
+#
+# TODO (Henke): Uppdatera VECTOR_STORE_PATH och system-prompten för återbetalning.
 
 from pathlib import Path
 
@@ -17,8 +19,8 @@ client = anthropic.Anthropic()
 # Namn på embedding-modellen – multilingual för att hantera svenska frågor
 EMBEDDING_MODEL = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
 
-# Sökväg till sparad FAISS vector store (relativt backend/-mappen)
-VECTOR_STORE_PATH = "csn_vector_store"
+# Sökväg till sparad FAISS vector store (relativt aterbetalning/-mappen)
+VECTOR_STORE_PATH = "aterbetalning_vector_store"
 
 
 def load_vector_store():
@@ -46,11 +48,11 @@ def ask_claude(question: str, context_docs: list) -> dict:
     context = "\n\n".join([doc.page_content for doc in context_docs])
     sources = list(set([doc.metadata["source"] for doc in context_docs]))
 
-    # Skicka fråga + kontext till Claude och returnera svar med källor
+    # TODO (Henke): Anpassa system-prompten för återbetalningsfrågor
     message = client.messages.create(
         model="claude-sonnet-4-20250514",
         max_tokens=1024,
-        system="""Du är en kunnig och hjälpsam CSN-assistent som specialiserar sig på studiestöd, bidrag och lån.
+        system="""Du är en kunnig och hjälpsam CSN-assistent som specialiserar sig på återbetalning av studielån.
 
 Ditt uppdrag:
 - Svara alltid på svenska
@@ -80,11 +82,3 @@ def answer_question(question: str, vector_store=None) -> dict:
         vector_store = load_vector_store()
     context_docs = retrieve_context(question, vector_store)
     return ask_claude(question, context_docs)
-
-
-if __name__ == "__main__":
-    question = "Hur mycket studiemedel kan jag få?"
-    print(f"Fråga: {question}\n")
-    result = answer_question(question)
-    print(f"Svar: {result['answer']}")
-    print(f"\nKällor: {result['sources']}")

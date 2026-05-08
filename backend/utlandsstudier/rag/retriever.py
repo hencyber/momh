@@ -1,37 +1,39 @@
-# RAG-retriever för CSN Studiestöd (Orhan)
-# Hanterar inläsning av FAISS vector store, kontextsökning och Claude-anrop.
-# answer_question() accepterar en redan-laddad vector store för bättre prestanda.
+# RAG-retriever för CSN Utlandsstudier (Mona)
+# Hanterar inläsning av ChromaDB vector store, kontextsökning och Claude-anrop.
+# Samma mönster som Orhans retriever men med ChromaDB istället för FAISS.
+#
+# VIKTIGT: Kör 'make setup-mona' för att bygga ChromaDB-databasen innan start.
+# Data lagras i backend/data/ som är gitignorerad.
+#
+# TODO (Mona): Implementera load_vector_store() med ditt ChromaDB-klientanrop.
 
 from pathlib import Path
 
 import anthropic
 from dotenv import load_dotenv
-from langchain_community.vectorstores import FAISS
-from langchain_huggingface import HuggingFaceEmbeddings
 
 load_dotenv(Path(__file__).parent.parent / ".env")
 
 # Anthropic-klient för Claude-anrop
 client = anthropic.Anthropic()
 
+# Sökväg till ChromaDB-databasen (gitignorerad, måste byggas lokalt)
+CHROMA_DB_PATH = "../data/chroma_utlandsstudier"
+
 # Namn på embedding-modellen – multilingual för att hantera svenska frågor
 EMBEDDING_MODEL = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
 
-# Sökväg till sparad FAISS vector store (relativt backend/-mappen)
-VECTOR_STORE_PATH = "csn_vector_store"
-
 
 def load_vector_store():
-    # Ladda FAISS vector store från disk med rätt embedding-modell
-    embeddings = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL)
-    # allow_dangerous_deserialization krävs av FAISS för pickle-baserad lagring.
-    # Säkert här eftersom vi kontrollerar källan till index-filen.
-    vector_store = FAISS.load_local(
-        VECTOR_STORE_PATH,
-        embeddings,
-        allow_dangerous_deserialization=True
-    )
-    return vector_store
+    # TODO (Mona): Lägg till ChromaDB-import och implementera vector store-laddning
+    # Exempelstruktur:
+    #   import chromadb
+    #   from langchain_community.vectorstores import Chroma
+    #   from langchain_huggingface import HuggingFaceEmbeddings
+    #   embeddings = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL)
+    #   client = chromadb.PersistentClient(path=CHROMA_DB_PATH)
+    #   return Chroma(client=client, embedding_function=embeddings)
+    raise NotImplementedError("load_vector_store() är inte implementerad för Monas ChromaDB")
 
 
 def retrieve_context(question: str, vector_store, k: int = 3) -> list:
@@ -46,11 +48,11 @@ def ask_claude(question: str, context_docs: list) -> dict:
     context = "\n\n".join([doc.page_content for doc in context_docs])
     sources = list(set([doc.metadata["source"] for doc in context_docs]))
 
-    # Skicka fråga + kontext till Claude och returnera svar med källor
+    # TODO (Mona): Anpassa system-prompten för utlandsstudierfrågor
     message = client.messages.create(
         model="claude-sonnet-4-20250514",
         max_tokens=1024,
-        system="""Du är en kunnig och hjälpsam CSN-assistent som specialiserar sig på studiestöd, bidrag och lån.
+        system="""Du är en kunnig och hjälpsam CSN-assistent som specialiserar sig på utlandsstudier och studier utomlands.
 
 Ditt uppdrag:
 - Svara alltid på svenska
@@ -80,11 +82,3 @@ def answer_question(question: str, vector_store=None) -> dict:
         vector_store = load_vector_store()
     context_docs = retrieve_context(question, vector_store)
     return ask_claude(question, context_docs)
-
-
-if __name__ == "__main__":
-    question = "Hur mycket studiemedel kan jag få?"
-    print(f"Fråga: {question}\n")
-    result = answer_question(question)
-    print(f"Svar: {result['answer']}")
-    print(f"\nKällor: {result['sources']}")
