@@ -16,5 +16,5 @@ jobs:
 
       - name: Build backend Docker image
         run: |
-          docker build -t csn-backend ./backend
+          docker build -t csn-backend -f backend/Dockerfile .
 
