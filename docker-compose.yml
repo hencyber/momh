@@ -1,12 +1,17 @@
 # Runs backend and frontend services together
 
 services:
- backend:
-  build: ./backend
-  ports:
-    - "8003:8003"
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "8001:8001"
 
- frontend:
-  build: ./frontend
-  ports:
-    - "3000:3000"
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+

@@ -13,4 +13,11 @@ RUN uv sync
 
 EXPOSE 8000
 
-CMD ["uv", "run", "python", "-m", "momh.backend.app.utlandsstudier.main"]
+# Henke
+# CMD ["uv", "run", "python", "-m", "momh.backend.app.aterbetalning.api"]
+
+# Mona
+# CMD ["uv", "run", "python", "-m", "momh.backend.app.main"]
+
+# Orhan
+CMD ["uv", "run", "python", "-m", "momh.backend.app.studiestod.main"]

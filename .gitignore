@@ -225,3 +225,4 @@ Thumbs.db
 Data
 src/momh/backend/data/utlandsstudier/chroma_db/
 src/momh/backend/data/utlandsstudier/*.txt
+csn_vector_store/
