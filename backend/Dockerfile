@@ -9,7 +9,7 @@ COPY . .
 
 RUN pip install uv
 
-RUN uv sync
+RUN uv sync --frozen
 
 EXPOSE 8000
 
