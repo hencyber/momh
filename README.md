@@ -12,30 +12,42 @@ The system is built using Retrieval-Augmented Generation (RAG).
 
 
 ## Architecture
-The project consists of:
+The project consists of multiple containerized services:
 
-- Backend (FastAPI + RAG logic)
-- Frontend (user interface)
-- Docker & Docker Compose for containerization
-- GitHub Actions for CI
+- Streamlit frontend
+- Studiestöd backend
+- Återbetalning backend
+- Utlandsstudier backend
+- MLflow tracking server
+- Docker Compose orchestration
+- GitHub Actions CI
 
-
-## How to run
-
-```bash
-docker compose up --build
-```
+All backend services are implemented in the `src/momh/backend/` package and are started separately through Docker Compose.
 
 
 ## Project Structure
-
 ```text
 momh/
-├── backend/        # API + RAG logic
-├── frontend/       # Chat UI
+├── src/
+│   └── momh/
+│       └── backend/
+│           ├── app/
+│           │   ├── studiestod/
+│           │   ├── aterbetalning/
+│           │   └── utlandsstudier/
+│           └── rag/
+├── frontend/
+│   ├── Dockerfile
+│   └── streamlit_app.py
+├── backend/
+│   └── Dockerfile
 ├── docker-compose.yml
-└── .github/        # CI workflows
-```
+└── .github/
+    └── workflows/
+```   
+The main backend code is located under `src/momh/backend/`.
+The `backend/Dockerfile` is used to build the backend containers.
+Each backend service is started separately through `docker-compose.yml`.
 
 
 ## Components
@@ -54,20 +66,20 @@ Handles:
 
 ### DevOps
 Includes:
-- Dockerfiles for services
-- docker-compose setup
-- CI with GitHub Actions
+- Multi-service Docker setup
+- Separate backend and frontend Dockerfiles
+- Docker Compose orchestration
+- MLflow experiment tracking
+- GitHub Actions CI
 
 
 ## Chatbot Domains
-
 Each team member is responsible for a specific CSN domain:
 
 ### Studiestöd
 To be added.
 
 ### Återbetalning
-
 See detailed implementation below:
 *Implemented by Henke*
 
@@ -163,14 +175,15 @@ Each domain has its own RAG pipeline and backend logic but follows a shared API 
 
 
 ## DevOps & Infrastructure
-
 This project uses containerization and CI to ensure a reproducible environment.
 
 ### Docker
 - Each service runs in its own container
-- backend and frontend are containerized using Dockerfiles
+- Frontend and backend services are containerized using separate Dockerfiles
+- Docker Compose is used to orchestrate all services together
+- MLflow runs as a separate container for experiment tracking
 
-### Docker compose
+### Docker Compose
 - Used to run multiple services together
 - Simplifies local development and testing
 
@@ -182,26 +195,56 @@ This setup allows the team to develop independently while maintaining a unified 
 
 
 ## How to run the project
-
 Make sure Docker is installed and running.
 
 Run the following command:
 
 ```bash
-docker compose up --build
+docker compose up -d --build
 ```
 
 Then open in a browser:
+- Frontend: http://localhost:8501
+- MLflow: http://localhost:5000
 
-http://localhost:8000
+
+## Services
+The application is composed of multiple Docker services:
+
+- `frontend` → Streamlit UI (`localhost:8501`)
+- `studiestod-backend` → Studiestöd API (`localhost:8001`)
+- `aterbetalning-backend` → Återbetalning API (`localhost:8002`)
+- `utlandsstudier-backend` → Utlandsstudier API (`localhost:8003`)
+- `mlflow` → MLflow tracking UI (`localhost:5000`)
 
 
 ## Screenshots
-** Placeholder **
-Add screenshots here showing the running application
+
+### Frontend
+![Frontend](screenshots/frontend-home.png)
+
+### Studiestöd chatbot
+![Studiestöd](screenshots/studiestod-chat.png)
+
+### Återbetalning chatbot
+![Återbetalning](screenshots/aterbetalning-chat.png)
+
+### Utlandsstudier chatbot
+![Utlandsstudier](screenshots/utlandsstudier-chat.png)
+
+### Docker containers
+![Docker](screenshots/docker-containers.png)
+
+### MLflow run overview
+![MLflow Runs](screenshots/mlflow-runs.png)
+
+### MLflow metrics
+![MLflow Metrics](screenshots/mlflow-metrics.png)
+
+### MLflow artifacts
+![MLflow Artifacts](screenshots/mlflow-artifacts.png)
 
 
-## NOTES
-
+## Conclusion
 This project demonstrates how independent RAG-based services can be combined into a unified system using DevOps practices.
 Each team member works on their own domain while maintaining a shared structure for integration.
