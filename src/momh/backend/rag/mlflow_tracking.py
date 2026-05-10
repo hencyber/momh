@@ -9,6 +9,8 @@ from dotenv import load_dotenv
 
 load_dotenv(Path(__file__).parent.parent / ".env")
 
+mlflow.set_tracking_uri("http://localhost:5000")
+
 # Sätt MLflow-experiment för studiestöds-RAG
 mlflow.set_experiment("csn-studiestod-rag")
 
@@ -31,7 +33,10 @@ Ditt uppdrag:
 - Strukturera längre svar med punktlistor för tydlighet
 - Håll en vänlig och professionell ton"""
 
-def log_prompt_version(version: str, prompt: str, question: str, answer: str, relevance_score: float):
+
+def log_prompt_version(
+    version: str, prompt: str, question: str, answer: str, relevance_score: float
+):
     # Logga en prompt-version med svar och relevans-score till MLflow
     with mlflow.start_run(run_name=f"prompt_{version}"):
         mlflow.log_param("prompt_version", version)
@@ -56,5 +61,5 @@ if __name__ == "__main__":
     # Logga v1 och v2 med manuellt satta scores
     log_prompt_version("v1", PROMPT_V1, question, answer, relevance_score=0.6)
     log_prompt_version("v2", PROMPT_V2, question, answer, relevance_score=0.85)
-    
+
     print("\nKlart! Kör 'mlflow ui' för att se resultaten i webbläsaren.")

@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
 
-load_dotenv(Path(__file__).parent.parent / ".env")
+load_dotenv(Path(__file__).resolve().parents[4] / ".env")
 
 # Anthropic-klient för Claude-anrop byter till openrouter
 client = OpenAI(

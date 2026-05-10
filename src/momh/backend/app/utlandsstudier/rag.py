@@ -13,6 +13,25 @@ os.environ["OPENAI_API_KEY"] = os.getenv("OPENROUTER_API_KEY")
 os.environ["OPENAI_API_BASE"] = "https://openrouter.ai/api/v1"
 
 
+def clear_strange_source(source):
+    if not source or "unknown" in source.lower():
+        return "CSN"
+
+    source = source.split("/")[-1]
+    source = source.replace(".txt", "")
+    source = source.replace("-", " ")
+    source = source.replace("_", " ")
+
+    return source.title()
+
+
+def get_source_url(source):
+    if source and source.startswith("http"):
+        return source
+
+    return "https://www.csn.se/bidrag-och-lan/studiestod/utlandsstudier.html"
+
+
 def setup_rag_chain():
     # 2. Load existing database
     persist_directory = "src/momh/backend/data/utlandsstudier/chroma_db"
@@ -85,11 +104,15 @@ Svar:
     # UPDATED SECTIOON New code, here i create a function instead of chain
     def rag_pipeline(question: str):
         docs = retriever.invoke(question)
-        sources = [doc.metadata.get("source", "unknown") for doc in docs]
+
+        sources = list(
+            set([get_source_url(doc.metadata.get("source", "")) for doc in docs])
+        )
+        # Added
         context = "\n\n".join(
             [
-                f"KÄLLA/SOURCE: {doc.metadata.get('source', 'unknown')}\n{doc.page_content}"
-                for doc in docs
+                f"KÄLLA/SOURCE: {get_source_url(doc.metadata.get('source', ''))}\n{doc.page_content}"
+                for doc in docs  # Added
             ]
         )
 

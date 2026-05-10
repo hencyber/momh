@@ -7,17 +7,10 @@ WORKDIR /app
 
 COPY . .
 
-RUN pip install uv
+RUN pip install --no-cache-dir uv
 
 RUN uv sync --frozen
 
+ENV PYTHONPATH=/app/src
+
 EXPOSE 8000
-
-# Henke
-# CMD ["uv", "run", "python", "-m", "momh.backend.app.aterbetalning.api"]
-
-# Mona
-# CMD ["uv", "run", "python", "-m", "momh.backend.app.main"]
-
-# Orhan
-CMD ["uv", "run", "python", "-m", "momh.backend.app.studiestod.main"]
