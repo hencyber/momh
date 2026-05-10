@@ -1,7 +1,7 @@
 # Runs backend and frontend services together
 
 services:
-  backend:
+  studiestod-backend:
     build:
       context: .
       dockerfile: backend/Dockerfile
@@ -9,9 +9,37 @@ services:
       - .env
     ports:
       - "8001:8001"
+    command: uv run python -m momh.backend.app.studiestod.main
+
+  aterbetalning-backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "8002:8002"
+    command: uv run python -m momh.backend.app.aterbetalning.api
+
+
+  utlandsstudier-backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "8003:8003"
+    command: uv run python -m momh.backend.app.main
 
   frontend:
     build: ./frontend
     ports:
-      - "3000:3000"
+      - "8501:8501"
+
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.12.1
+    ports:
+      - "5000:5000"
+    command: mlflow ui --host 0.0.0.0 --port 5000
 

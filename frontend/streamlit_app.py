@@ -11,19 +11,19 @@ CHATBOTS = {
     "Studiestöd": {
         "title": "🎓 CSN Studiestöd",
         "description": "Ställ frågor om studiemedel, bidrag och lån",
-        "url": "http://localhost:8001/chat",
+        "url": "http://studiestod-backend:8001/chat",
         "placeholder": "Ex: Hur ansöker jag om studiemedel?",
     },
     "Återbetalning": {
         "title": "💳 CSN Återbetalning",
         "description": "Ställ frågor om återbetalning av studielån",
-        "url": "http://localhost:8002/chat",
+        "url": "http://aterbetalning-backend:8002/chat",
         "placeholder": "Ex: Hur fungerar återbetalning?",
     },
     "Utlandsstudier": {
         "title": "✈️ CSN Utlandsstudier",
         "description": "Ställ frågor om bidrag och lån för studier utomlands",
-        "url": "http://localhost:8003/chat",
+        "url": "http://utlandsstudier-backend:8003/chat",
         "placeholder": "Ex: Kan jag få CSN för studier i Spanien)",
     },
 }
