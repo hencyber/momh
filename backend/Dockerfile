@@ -13,4 +13,6 @@ RUN uv sync --frozen
 
 ENV PYTHONPATH=/app/src
 
-EXPOSE 8000
+EXPOSE 8003
+
+CMD ["uv", "run", "python", "-m", "momh.backend.app.main"]
