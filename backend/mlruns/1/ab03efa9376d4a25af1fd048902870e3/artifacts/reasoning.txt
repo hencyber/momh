@@ -1,1 +1,0 @@
-Chatboten erkänner korrekt att specifik beloppsinformation saknas i kontexten och identifierar relevanta stödtyper. Ställer relevanta följdfrågor för att kunna ge bättre hjälp. Dock kunde svaret varit mer koncist genom att korta ner uppräkningen.
