@@ -4,15 +4,23 @@
 
 from pathlib import Path
 
-import anthropic
+from openai import OpenAI
+import os
 from dotenv import load_dotenv
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
 
-load_dotenv(Path(__file__).parent.parent / ".env")
+load_dotenv(Path(__file__).resolve().parents[4] / ".env")
 
-# Anthropic-klient för Claude-anrop
-client = anthropic.Anthropic()
+# Anthropic-klient för Claude-anrop byter till openrouter
+client = OpenAI(
+    base_url="https://openrouter.ai/api/v1",
+    api_key=os.getenv("OPENROUTER_API_KEY"),
+    default_headers={
+        "HTTP-Referer": "http://localhost:8001",
+        "X-Title": "momh-csn-chatbot",
+    },
+)
 
 # Namn på embedding-modellen – multilingual för att hantera svenska frågor
 EMBEDDING_MODEL = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
@@ -27,9 +35,7 @@ def load_vector_store():
     # allow_dangerous_deserialization krävs av FAISS för pickle-baserad lagring.
     # Säkert här eftersom vi kontrollerar källan till index-filen.
     vector_store = FAISS.load_local(
-        VECTOR_STORE_PATH,
-        embeddings,
-        allow_dangerous_deserialization=True
+        VECTOR_STORE_PATH, embeddings, allow_dangerous_deserialization=True
     )
     return vector_store
 
@@ -47,31 +53,30 @@ def ask_claude(question: str, context_docs: list) -> dict:
     sources = list(set([doc.metadata["source"] for doc in context_docs]))
 
     # Skicka fråga + kontext till Claude och returnera svar med källor
-    message = client.messages.create(
-        model="claude-sonnet-4-20250514",
+    response = client.chat.completions.create(
+        model="anthropic/claude-3.5-haiku",
         max_tokens=1024,
-        system="""Du är en kunnig och hjälpsam CSN-assistent som specialiserar sig på studiestöd, bidrag och lån.
+        messages=[
+            {
+                "role": "system",
+                "content": """Du är en kunnig och hjälpsam CSN-assistent som specialiserar sig på studiestöd, bidrag och lån.
 
 Ditt uppdrag:
 - Svara alltid på svenska
 - Basera dina svar ENDAST på den information som ges i kontexten
 - Om frågan är vag, ställ en följdfråga för att förstå situationen bättre
-- Ge konkreta och specifika svar — undvik att säga "kontakta CSN" om svaret finns i kontexten
-- Om informationen verkligen saknas i kontexten, var ärlig om det men förklara vad du vet
-- Strukturera längre svar med punktlistor för tydlighet
+- Ge konkreta och specifika svar
+- Strukturera längre svar med punktlistor
 - Håll en vänlig och professionell ton""",
-        messages=[
+            },
             {
                 "role": "user",
-                "content": f"Kontext från CSN:\n{context}\n\nFråga: {question}"
-            }
-        ]
+                "content": f"Kontext från CSN:\n{context}\n\nFråga: {question}",
+            },
+        ],
     )
 
-    return {
-        "answer": message.content[0].text,
-        "sources": sources
-    }
+    return {"answer": response.choices[0].message.content, "sources": sources}
 
 
 def answer_question(question: str, vector_store=None) -> dict:

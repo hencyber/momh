@@ -9,7 +9,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
-from rag.retriever import answer_question, load_vector_store
+from momh.backend.rag.retriever import answer_question, load_vector_store
 
 # Global referens till vector store – laddas en gång vid startup för bättre prestanda
 _vector_store = None
@@ -41,10 +41,7 @@ def chat(request: ChatRequest):
     # Skicka frågan till RAG-pipeline med förladdad vector store
     try:
         result = answer_question(request.question, _vector_store)
-        return ChatResponse(
-            answer=result["answer"],
-            sources=result["sources"]
-        )
+        return ChatResponse(answer=result["answer"], sources=result["sources"])
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Något gick fel: {str(e)}")
 
@@ -59,3 +56,9 @@ def health():
 def index():
     # Servera HTML-gränssnittet från templates/
     return FileResponse("templates/index.html")
+
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(app, host="0.0.0.0", port=8001)
