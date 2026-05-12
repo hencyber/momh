@@ -67,4 +67,8 @@ def chat_utlandsstudier(request: ChatRequest):
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host="0.0.0.0", port=8003)
+    uvicorn.run(
+        "momh.backend.app.main:app",
+        host="0.0.0.0",
+        port=8003,
+    )
