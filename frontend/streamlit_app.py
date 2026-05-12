@@ -1,5 +1,6 @@
 import streamlit as st
 import requests
+import os
 
 st.set_page_config(
     page_title="CSN Chatbot",
@@ -11,19 +12,19 @@ CHATBOTS = {
     "Studiestöd": {
         "title": "🎓 CSN Studiestöd",
         "description": "Ställ frågor om studiemedel, bidrag och lån",
-        "url": "http://studiestod-backend:8001/chat",
+        "url": os.getenv("STUDIESTOD_API_URL"),
         "placeholder": "Ex: Hur ansöker jag om studiemedel?",
     },
     "Återbetalning": {
         "title": "💳 CSN Återbetalning",
         "description": "Ställ frågor om återbetalning av studielån",
-        "url": "http://aterbetalning-backend:8002/chat",
+        "url": os.getenv("ATERBETALNING_API_URL"),
         "placeholder": "Ex: Hur fungerar återbetalning?",
     },
     "Utlandsstudier": {
         "title": "✈️ CSN Utlandsstudier",
         "description": "Ställ frågor om bidrag och lån för studier utomlands",
-        "url": "http://utlandsstudier-backend:8003/chat",
+        "url": os.getenv("UTLANDSSTUDIER_API_URL"),
         "placeholder": "Ex: Kan jag få CSN för studier i Spanien)",
     },
 }
